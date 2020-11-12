@@ -1,6 +1,9 @@
 import React from "react";
 class Hello extends React.Component {
+  // eslint-disable-next-line react/require-render-return
   render() {
-    //Insert Code
+    return <div>Hello {this.props.name}</div>
   }
 }
+
+export default Hello;

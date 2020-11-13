@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import GoogleMapReact from 'google-map-react';
 import './App.css';
 import Flat from './components/flat';
+import Marker from './components/marker';
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +21,8 @@ class App extends Component {
           flats: data
         });
       })
-  }
+  };
+
   render() {
     const flat = {
     "id": 145,
@@ -32,6 +35,10 @@ class App extends Component {
     };
 
     const flats = [flat, flat, flat, flat]
+    const center = {
+    lat: 48.8566,
+    lng: 2.3522
+    }
     return (
       <div className="app">
         <div className="main">
@@ -39,11 +46,19 @@ class App extends Component {
           </div>
           <div className="flats">
             {this.state.flats.map(function(flat) {
-              return <Flat flat={flat} />
+              return <Flat key={flat.name} flat={flat} />
             })};
           </div>
       </div>
         <div className="map">
+        <GoogleMapReact
+          center={center}
+          zoom={11}
+        >
+          {this.state.flats.map((flat) => {
+            return <Marker key={flat.name} lat={flat.lat} lng={flat.lng} text={flat.price} />
+            })}
+        </GoogleMapReact>
         </div>
       </div>
     );

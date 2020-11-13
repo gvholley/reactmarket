@@ -91,10 +91,7 @@ class App extends Component {
         >
           {this.state.flats.map((flat) => {
             return <Marker
-            key={flat.name}
-            lat={flat.lat}
-            lng={flat.lng}
-            text={flat.price}
+            {...flat}
             selected={flat === this.state.selectedFlat} />
             })}
         </GoogleMapReact>

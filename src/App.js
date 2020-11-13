@@ -3,6 +3,23 @@ import './App.css';
 import Flat from './components/flat';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      flats: []
+    };
+  }
+
+  componentWillMount() {
+    const url = "https://raw.githubusercontent.com/lewagon/flats-boilerplate/master/flats.json"
+    fetch(url)
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({
+          flats: data
+        });
+      })
+  }
   render() {
     const flat = {
     "id": 145,
@@ -13,15 +30,17 @@ class App extends Component {
     "lat": 48.884211,
     "lng": 2.346890
     };
+
+    const flats = [flat, flat, flat, flat]
     return (
       <div className="app">
         <div className="main">
           <div className="search">
           </div>
           <div className="flats">
-          <Flat flat={flat} />
-          <Flat flat={flat} />
-          <Flat flat={flat} />
+            {this.state.flats.map(function(flat) {
+              return <Flat flat={flat} />
+            })};
           </div>
       </div>
         <div className="map">

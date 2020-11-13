@@ -1,7 +1,10 @@
 import React from "react";
 import "./flat.css";
 class Flat extends React.Component {
-  // eslint-disable-next-line react/require-render-return
+  handleClick = () => {
+    //Call the parent method selectFlat
+    this.props.selectFlat(this.props.flat);
+  }
   render() {
 
     const title = this.props.flat.price
@@ -13,7 +16,7 @@ class Flat extends React.Component {
     };
 
     return (
-      <div className="flat">
+      <div className="flat" onClick={this.handleClick}>
         <div className="flat-picture" style={style}></div>
         <div className="flat-title"></div>
           {title}

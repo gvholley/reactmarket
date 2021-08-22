@@ -41,7 +41,7 @@ class App extends Component {
       shops: this.state.allShops.filter((shop) => new RegExp(event.target.value, "i").exec(shop.name))
     })
   }
-//35.69054778985861, 139.70057130000004
+
   render() {
     const shop = {
     "id": 111,

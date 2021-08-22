@@ -2,67 +2,67 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 
 import './App.css';
-import Flat from './components/flat';
+import Shop from './components/shop';
 import Marker from './components/marker';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      flats: [],
-      allFlats: [],
-      selectedFlat: null,
+      shops: [],
+      allShops: [],
+      selectedShop: null,
       search: ""
     };
   }
 
   componentWillMount() {
-    const url = "https://raw.githubusercontent.com/lewagon/flats-boilerplate/master/flats.json"
+    const url = "https://raw.githubusercontent.com/gvholley/burgerjson/main/burgerslist.json"
     fetch(url)
       .then(response => response.json())
       .then((data) => {
         this.setState({
-          allFlats: data,
-          flats: data,
-          selectedFlat: data[0]
+          allShops: data,
+          shops: data,
+          selectedShop: data[0]
         })
       })
   }
 
-  selectFlat = (flat) => {
+  selectShop = (shop) => {
     this.setState({
-      selectedFlat: flat
+      selectedShop: shop
     });
   }
 
   handleSearch = (event) => {
     this.setState({
       search: event.target.value,
-      flats: this.state.allFlats.filter((flat) => new RegExp(event.target.value, "i").exec(flat.name))
+      shops: this.state.allShops.filter((shop) => new RegExp(event.target.value, "i").exec(shop.name))
     })
   }
-
+//35.69054778985861, 139.70057130000004
   render() {
-    const flat = {
-    "id": 145,
-    "name": "Charm at the Steps of the Sacre Coeur/Montmartre",
-    "imageUrl": "https://raw.githubusercontent.com/lewagon/flats-boilerplate/master/images/flat1.jpg",
-    "price": 164,
-    "priceCurrency": "EUR",
-    "lat": 48.884211,
-    "lng": 2.346890
+    const shop = {
+    "id": 111,
+    "name": "J.S. Burgers Cafe",
+    "imageUrl": "https://i.imgur.com/n7Rt4Dm.png",
+    "rating": 4.8,
+    "review": "Great variety!",
+    "lat": 35.69054778985861,
+    "lng": 139.70057130000004
     };
 
-    const flats = [flat, flat, flat, flat]
+    const shops = [shop, shop, shop]
     let center = {
-    lat: 48.8566,
-    lng: 2.3522
+    lat: 35.69054778985861,
+    lng: 139.70057130000004
     }
 
-    if (this.state.selectedFlat) {
+    if (this.state.selectedShop) {
       center = {
-        lat: this.state.selectedFlat.lat,
-        lng: this.state.selectedFlat.lng
+        lat: this.state.selectedShop.lat,
+        lng: this.state.selectedShop.lng
       }
     }
     return (
@@ -75,12 +75,12 @@ class App extends Component {
             value={this.state.search}
             onChange={this.handleSearch} />
           </div>
-          <div className="flats">
-            {this.state.flats.map((flat) => {
-              return <Flat
-              key={flat.name}
-              flat={flat}
-              selectFlat={this.selectFlat} />
+          <div className="shops">
+            {this.state.shops.map((shop) => {
+              return <Shop
+              key={shop.name}
+              shop={shop}
+              selectShop={this.selectShop} />
             })}
           </div>
       </div>
@@ -89,10 +89,10 @@ class App extends Component {
           center={center}
           zoom={14}
         >
-          {this.state.flats.map((flat) => {
+          {this.state.shops.map((shop) => {
             return <Marker
-            {...flat}
-            selected={flat === this.state.selectedFlat} />
+            {...shop}
+            selected={shop === this.state.selectedShop} />
             })}
         </GoogleMapReact>
         </div>

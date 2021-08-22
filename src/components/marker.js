@@ -7,7 +7,7 @@ class Marker extends React.Component {
     if (this.props.selected) {
       classes += " selected";
     }
-    return <div className={classes}>{this.props.price}€</div>;
+    return <div className={classes}>{this.props.rating}</div>;
   }
 }
 
